@@ -1,0 +1,15 @@
+Vending machine
+
+Selections:
+Soda, Candy, Chips 
+
+Pricing - varied pricing
+
+Payment - cash and card option
+Validate payment 
+Notice for not enough funds
+Dispense change
+
+Maintenance option based on user validation/key
+Report Sales total and by item type
+Send notice when a selection is running low.
