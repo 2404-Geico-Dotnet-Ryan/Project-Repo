@@ -5,11 +5,23 @@ Soda, Candy, Chips
 
 Pricing - varied pricing
 
-Payment - cash and card option
-Validate payment 
-Notice for not enough funds
-Dispense change
+Enter user name: Abbi, John, Morris or Guest
+User Name should allow "New Purchase or Purchase history"
 
-Maintenance option based on user validation/key
-Report Sales total and by item type
-Send notice when a selection is running low.
+Purchase History:
+(Abbi, John, Morris) 
+Allow user to enter name to see: "My purchases". 
+Return value: Item name/count/total dollar amount by item and total combined accross all items.
+
+New Purchase: 
+Allow user selection(s)
+Provide a total due. 
+Allow user to enter a payment amount of their choosing. 
+Validate payment amount entered to amount due.    
+"<" Message "Please enter an additional " ".  
+">" Message "Your change " ".
+"=" Thank you" 
+
+Maintenance option based on user 'Ken' + unique pin.
+Report Sales inventory and total sales. 
+Message for items with count < '5'. 
