@@ -5,23 +5,24 @@ Soda, Candy, Chips
 
 Pricing - varied pricing
 
-Enter user name: Abbi, John, Morris or Guest
-User Name should allow "New Purchase or Purchase history"
+Enter user name: Guest or Maintenance
+User Name should will determine mode "New Purchase or Purchase history"
 
 Purchase History:
-(Abbi, John, Morris) 
-Allow user to enter name to see: "My purchases". 
+(Maintenance) 
+Allow user to see: "Purchase history". 
 Return value: Item name/count/total dollar amount by item and total combined accross all items.
 
 New Purchase: 
-Allow user selection(s)
+(Guest)
+Allow user selection(s).
 Provide a total due. 
-Allow user to enter a payment amount of their choosing. 
+Allow user to enter a payment amount. 
 Validate payment amount entered to amount due.    
-"<" Message "Please enter an additional " ".  
-">" Message "Your change " ".
-"=" Thank you" 
+"<" or ">" Message "Please enter exact change."  
+"=" "Thank you!" 
+Decrease Item Quantity for items purchased.
 
-Maintenance option based on user 'Ken' + unique pin.
+Maintenance option based on user + unique pin.
 Report Sales inventory and total sales. 
 Message for items with count < '5'. 

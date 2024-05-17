@@ -1,0 +1,15 @@
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.AssemblyInfoInputs.cache
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.AssemblyInfo.cs
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.csproj.CoreCompileInputs.cache
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.sourcelink.json
+C:\Revature - GayleR\Project-Repo\bin\Debug\net8.0\Project-Repo.exe
+C:\Revature - GayleR\Project-Repo\bin\Debug\net8.0\Project-Repo.deps.json
+C:\Revature - GayleR\Project-Repo\bin\Debug\net8.0\Project-Repo.runtimeconfig.json
+C:\Revature - GayleR\Project-Repo\bin\Debug\net8.0\Project-Repo.dll
+C:\Revature - GayleR\Project-Repo\bin\Debug\net8.0\Project-Repo.pdb
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.dll
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\refint\Project-Repo.dll
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.pdb
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\Project-Repo.genruntimeconfig.cache
+C:\Revature - GayleR\Project-Repo\obj\Debug\net8.0\ref\Project-Repo.dll
