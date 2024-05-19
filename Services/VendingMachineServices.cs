@@ -11,7 +11,7 @@ Require user to enter a PIN
 Validate(PIN) (not needed here, done under services)
 Purchase History: 
 Return Purchased Items: (Item name/Sold count/Sum of Sold Items/Sum for all sold items.
-Return Message for items with count < '5'. "Please restock (Item) soon"
+Return Message for items with count < '5'. "Items low in stock"
 Quit or Exit Maintenance mode. "Return to main menu" 
 
 (Guest)
@@ -56,6 +56,8 @@ public VendingMachine GetItem(int id)
 }
 
 /*Select an additional item? (bool) Yes/No (Program) --future interation
+
+Still need to code-
 Payment Due: (sum (Price) of items selected) (Program)
 Require user to enter a payment amount. "
 Validate payment amount entered against amount due. "   
