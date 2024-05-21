@@ -23,7 +23,8 @@
         while (true)
 
         {
-            System.Console.WriteLine();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("************************");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Gayle's Vending Machine!");
@@ -54,6 +55,7 @@
                     break;
 
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
@@ -61,6 +63,7 @@
     }
     private static void GuestMode()
     {
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Available Items:");
 
 
@@ -150,9 +153,6 @@
         Console.WriteLine("Press Enter to return to the Main Menu.");
         Console.ReadKey();
 
-
-
-
     }
     //*********************************************************************************
     private static void MaintenanceMode()
@@ -169,7 +169,7 @@
                 List<VendingMachine> vendingMachine = vs.GetItemsToDisplay();
 
                 Console.WriteLine();
-                Console.WriteLine("Items Sold: ");
+                Console.WriteLine("Count of Items Sold: ");
                 foreach (VendingMachine v in vendingMachine)
                 {
                     if (v.Sold > 0)
