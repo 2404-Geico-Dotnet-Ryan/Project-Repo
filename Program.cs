@@ -5,7 +5,17 @@
     static void Main(string[] args)
 
     {
-        MainMenu();
+        MainMenu();   //(You can comment back in later) ****
+                      // @ provides extra felability when creating strings
+                      // string path = @"C:\\Revature - GayleR\\Project-Repo\\SQL.txt";
+
+        //read all text
+        //string connectionString = File.ReadAllText(path); //******comment out later
+
+        //temporary to make sure path works
+        // System.Console.WriteLine(connectionString);
+
+
     }
 
     public static void MainMenu()
@@ -15,7 +25,9 @@
         {
             System.Console.WriteLine();
             Console.WriteLine("************************");
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Gayle's Vending Machine!");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("************************");
             Console.WriteLine();
             Console.WriteLine("[1]. Make a Purchase");
@@ -58,12 +70,16 @@
         foreach (VendingMachine v in vendingMachine)
         {
             //System.Console.WriteLine(v);
+            Console.ForegroundColor = ConsoleColor.Blue;
             System.Console.WriteLine(v.Id + ": " + v.Item + " $" + v.Price + "0");
         }
 
+        System.Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.White;
         System.Console.WriteLine("Please enter the number of the item you would like to buy.");
         int userItem = int.Parse(Console.ReadLine() ?? "0");
 
+        Console.ForegroundColor = ConsoleColor.White;
         System.Console.WriteLine("Please enter the quantity you would like to purchase.");
         int userQuantity = int.Parse(Console.ReadLine() ?? "0");
 
@@ -74,6 +90,7 @@
 
         vs.PurchasedItems(g);  //dispenses item, updates the counts in the table. 
 
+        Console.ForegroundColor = ConsoleColor.White;
         System.Console.WriteLine();
         System.Console.Write("Total Amount Due: ");
         double totalDue = 0;
@@ -114,7 +131,9 @@
                 {
                     System.Console.WriteLine();
                     Console.WriteLine("***************************");
-                    Console.WriteLine("Thank you for your purchase!");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Thank you for your Purchase!");
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("***************************");
                     Console.WriteLine();
                     break;
@@ -127,7 +146,8 @@
         } while (true);
 
 
-        Console.WriteLine("Press Enter to return to the main menu.");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Press Enter to return to the Main Menu.");
         Console.ReadKey();
 
 
@@ -148,26 +168,29 @@
             {
                 List<VendingMachine> vendingMachine = vs.GetItemsToDisplay();
 
-                System.Console.WriteLine();
-                System.Console.Write("Items Sold:");
+                Console.WriteLine();
+                Console.WriteLine("Items Sold: ");
                 foreach (VendingMachine v in vendingMachine)
                 {
                     if (v.Sold > 0)
                     {
-                        //System.Console.WriteLine(v);
-                        Console.Write(v.Item + ": " + v.Sold +", ");
-                        
+                       
+                        Console.Write(v.Item + " - " + v.Sold);
+                        Console.WriteLine();
+
                     }
                 }
 
-                //System.Console.WriteLine("/nItems Low in Stock:");
                 foreach (VendingMachine v in vendingMachine)
                 {
                     if (v.Quantity < 5)
                     {
-                        //System.Console.WriteLine(v);
-                        System.Console.WriteLine($"Items Low in Stock: " + v.Item + " Quantity:  " + v.Quantity);
-                        
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Items Low in Stock:");
+                        Console.Write(v.Item + " Quantity: " + v.Quantity);
+                        Console.WriteLine();
+
                     }
                 }
 
@@ -181,16 +204,20 @@
                     }
                 }
                 Console.WriteLine();
+                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Your total Earnings for this week is $" + totalEarnings + "0");
-                System.Console.WriteLine();
+                Console.WriteLine();
 
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Enter to Return to Main Menu.");
 
                 Console.ReadLine();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid PIN");
+                Console.ForegroundColor = ConsoleColor.White;
 
             }
         }

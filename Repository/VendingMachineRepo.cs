@@ -4,11 +4,9 @@ class VendingMachineRepo
 
     VendingMachineStorage vendingMachineStorage = new();  //Pascal case 
 
-
     public VendingMachine? GetItem(int id)
     {
-        // Alternative approach that breaks each step down.
-        if (vendingMachineStorage.item.ContainsKey(id))
+       if (vendingMachineStorage.item.ContainsKey(id))  // ContainsKey Alternative approach that breaks each step down.
         {
         return vendingMachineStorage.item[id];
         }

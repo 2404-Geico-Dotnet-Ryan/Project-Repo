@@ -1,9 +1,6 @@
 class VendingMachineServices
 
 {
-//Methods
-/*
-Select user type: Guest or Maintenance (main program) Display and allow select*/
 VendingMachineRepo vr = new ();
 
 /*(Maintenance) 
@@ -50,17 +47,11 @@ public VendingMachine PurchasedItems(VendingMachine v)
 public VendingMachine GetItem(int id)
 
 {
-    VendingMachine getItem=vr.GetItem(id);
+    var getItem=vr.GetItem(id);
     return getItem;
 }
 }
 
-/*Select an additional item? (bool) Yes/No (Program) --future interation
+//*Select an additional item? (bool) Yes/No (Program) --future interation
 
-Still need to code-
-Payment Due: (sum (Price) of items selected) (Program)
-Require user to enter a payment amount. "
-Validate payment amount entered against amount due. "   
-"< or > Message "Please enter exact change"  
-"=" Thank you!" 
-*/
+
