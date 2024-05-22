@@ -1,22 +1,34 @@
-﻿class Program
+﻿using Microsoft.Data.SqlClient;
+class Program
+
 {
     static UserService us = new();
     static VendingMachineServices vs = new();
     static void Main(string[] args)
 
     {
-        MainMenu();   //(You can comment back in later) ****
-                      // @ provides extra felability when creating strings
-                      // string path = @"C:\\Revature - GayleR\\Project-Repo\\SQL.txt";
+        string connectionString = "Data Source=GEIPW05AHA5;Initial Catalog=GayleVendingMachine;Integrated Security=False;User Id=sa;Password=Weekend!23;MultipleActiveResultSets=True;TrustServerCertificate=True";
 
-        //read all text
-        //string connectionString = File.ReadAllText(path); //******comment out later
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
 
-        //temporary to make sure path works
-        // System.Console.WriteLine(connectionString);
+            try
+            {
+                connection.Open();
+                System.Console.WriteLine("Connection successful!");
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        Console.ReadLine();
 
 
+        //Going to start off with the call to Main Menu still
+        MainMenu();
     }
+
 
     public static void MainMenu()
     {
@@ -174,7 +186,7 @@
                 {
                     if (v.Sold > 0)
                     {
-                       
+
                         Console.Write(v.Item + " - " + v.Sold);
                         Console.WriteLine();
 
@@ -204,7 +216,7 @@
                     }
                 }
                 Console.WriteLine();
-                 Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Your total Earnings for this week is $" + totalEarnings + "0");
                 Console.WriteLine();
 
@@ -223,4 +235,3 @@
         }
     }
 }
-

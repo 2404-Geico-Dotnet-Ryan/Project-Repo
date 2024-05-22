@@ -1,12 +1,15 @@
+//using Microsoft.Data.SqlClient;
+//using Microsoft.VisualBasic;
 class VendingMachineRepo
 
 {
 
-    VendingMachineStorage vendingMachineStorage = new();  //Pascal case 
+    VendingMachineStorage vendingMachineStorage = new();  
+     
 
     public VendingMachine? GetItem(int id)
     {
-       if (vendingMachineStorage.item.ContainsKey(id))  // ContainsKey Alternative approach that breaks each step down.
+       if (vendingMachineStorage.item.ContainsKey(id))  
         {
         return vendingMachineStorage.item[id];
         }
@@ -39,8 +42,6 @@ class VendingMachineRepo
         }
     }
 
-    
-
-}
+    } 
 
 //How to interact with the data (abstracts the data layer) CRUD operations - create, read, update, delete
