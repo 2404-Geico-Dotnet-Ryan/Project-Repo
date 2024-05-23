@@ -34,5 +34,3 @@ public class VendingMachine
     }
 
 }
-
-//Data entities in the application

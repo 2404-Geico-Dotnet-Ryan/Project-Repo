@@ -1,47 +1,117 @@
-//using Microsoft.Data.SqlClient;
-//using Microsoft.VisualBasic;
+using Microsoft.Data.SqlClient;
+
 class VendingMachineRepo
 
 {
+    private readonly string _connectionString;
 
-    VendingMachineStorage vendingMachineStorage = new();  
-     
+    public VendingMachineRepo(string connString)
+    {
+        _connectionString = connString;
+    }
+    
 
     public VendingMachine? GetItem(int id)
     {
-       if (vendingMachineStorage.item.ContainsKey(id))  
+
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        string sql = "SELECT * FROM [GayleVendingMachine].[dbo].[vendingMachine] where Id = @Id";
+        using SqlCommand cmd = new(sql, connection);
+
+        cmd.Parameters.AddWithValue("@Id", id);
+        using var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
         {
-        return vendingMachineStorage.item[id];
+            VendingMachine newVendingMachine = BuildVendingMachine(reader);
+            return newVendingMachine;
         }
         else
         {
-            System.Console.WriteLine("Invalid item selection - Please Try Again");
             return null;
         }
-    }
 
-    public List<VendingMachine> GetAllitems()
-    {
-        return vendingMachineStorage.item.Values.ToList();
     }
 
 
-    public VendingMachine? Updateditem(VendingMachine updatedItem)
+    public List<VendingMachine>? GetAllitems()
     {
         
+        List<VendingMachine> vendingMachines = new();
+
         try
         {
-            vendingMachineStorage.item[updatedItem.Id] = updatedItem;
-          
-          return updatedItem;
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            string sql = "SELECT  *  FROM [GayleVendingMachine].[dbo].[vendingMachine]";
+            using SqlCommand cmd = new(sql, connection);
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                VendingMachine newVendingMachine = BuildVendingMachine(reader);
+                vendingMachines.Add(newVendingMachine);
+
+            }
+            return vendingMachines;
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            System.Console.WriteLine("System Error, Maintenance needed");
-        return null;
+            Console.WriteLine(e.Message);
+            Console.WriteLine(e.StackTrace);
+            return null;
         }
+
     }
 
-    } 
+    private static VendingMachine BuildVendingMachine(SqlDataReader reader)
+    {
+        VendingMachine newVendingMachine = new();
+        newVendingMachine.Id = (int)reader["Id"];
+        newVendingMachine.Item = (string)reader["Item"];
+        newVendingMachine.Price = (double)(decimal)reader["Price"];
+        newVendingMachine.Quantity = (int)reader["Quantity"];
+        newVendingMachine.Sold = (int)reader["Sold"];
 
-//How to interact with the data (abstracts the data layer) CRUD operations - create, read, update, delete
+        return newVendingMachine;
+    }
+
+
+    public VendingMachine? UpdatedItem(VendingMachine item)
+    {
+
+
+        using SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        string sql = "UPDATE [GayleVendingMachine].[dbo].[vendingMachine] SET Price = @Price, Sold = @Sold, Quantity = @Quantity OUTPUT inserted.* WHERE Id = @Id";
+
+        using SqlCommand cmd = new(sql, connection);
+
+        cmd.Parameters.AddWithValue("@Id", item.Id);
+        cmd.Parameters.AddWithValue("@Price", item.Price);
+        cmd.Parameters.AddWithValue("@Sold", item.Sold);
+        cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+
+
+        using var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            VendingMachine newVendingMachine = BuildVendingMachine(reader);
+            return newVendingMachine;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+}
+

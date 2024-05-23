@@ -1,15 +1,17 @@
 class UserService
 {
-    UserRepo ur = new();
+        UserRepo up;
+
+    public UserService(UserRepo up)
+    {
+        this.up = up;
+    }
         
     public User? Login(string username, int PIN)
     {
         //Get all users
-        User? allUsers = ur.GetUser(2);
+        User? allUsers = up.GetUser(2);
 
-        //check each one to see if we find a match.
-            
-            //If matching username and password, they 'login' -> return that user
             if (allUsers.Username == username && allUsers.PIN == PIN)
 
             {
@@ -19,7 +21,7 @@ class UserService
             else
             {
             System.Console.WriteLine("Invalid PIN! Please Try Again!");
-            return null; //reject the login
+            return null; 
             }            
     }
 }

@@ -2,30 +2,22 @@
 class Program
 
 {
-    static UserService us = new();
-    static VendingMachineServices vs = new();
+    static UserService us;
+    static VendingMachineServices vs;
     static void Main(string[] args)
 
     {
-        string connectionString = "Data Source=GEIPW05AHA5;Initial Catalog=GayleVendingMachine;Integrated Security=False;User Id=sa;Password=Weekend!23;MultipleActiveResultSets=True;TrustServerCertificate=True";
+        string path = @"C:\Users\U1C066\OneDrive - Government Employees Insurance Company\Claims Referral\Desktop\VendingMachine Database Connection.txt";
+        string connectionString = File.ReadAllText(path);
 
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
+        UserRepo up = new(connectionString);
+        us = new(up);
 
-            try
-            {
-                connection.Open();
-                System.Console.WriteLine("Connection successful!");
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine("Error: " + ex.Message);
-            }
-        }
-        Console.ReadLine();
+        VendingMachineRepo vmr = new(connectionString);
+        vs = new(vmr);
 
 
-        //Going to start off with the call to Main Menu still
+        Console.Clear();
         MainMenu();
     }
 
