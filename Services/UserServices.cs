@@ -7,12 +7,12 @@ class UserService
         this.up = up;
     }
         
-    public User? Login(string username, int PIN)
+    public User? Login(string username, string Password)
     {
         //Get all users
         User? allUsers = up.GetUser(2);
 
-            if (allUsers.Username == username && allUsers.PIN == PIN)
+            if (allUsers.Username == username && allUsers.Password == Password)
 
             {
                    
@@ -20,7 +20,7 @@ class UserService
             } 
             else
             {
-            System.Console.WriteLine("Invalid PIN! Please Try Again!");
+            System.Console.WriteLine("Invalid Password! Please Try Again!");
             return null; 
             }            
     }

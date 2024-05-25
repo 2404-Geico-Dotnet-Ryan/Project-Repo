@@ -1,7 +1,7 @@
 
 using Microsoft.Data.SqlClient;
 
-class UserRepo
+public class UserRepo
 {
 
     private readonly string _connectionString;
@@ -96,7 +96,7 @@ class UserRepo
         User newUser = new();
         newUser.Userid = (int)reader["Id"];
         newUser.Username = (string)reader["Username"];
-        newUser.PIN = (int)reader["PIN"];
+        newUser.Password = (string)reader["Password"];
         
 
         return newUser;

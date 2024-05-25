@@ -4,6 +4,7 @@ class Program
 {
     static UserService us;
     static VendingMachineServices vs;
+    static OrderServices or;
     static void Main(string[] args)
 
     {
@@ -15,6 +16,9 @@ class Program
 
         VendingMachineRepo vmr = new(connectionString);
         vs = new(vmr);
+
+        OrdersRepo phs = new(connectionString);
+        or = new(phs);
 
 
         Console.Clear();
@@ -35,7 +39,7 @@ class Program
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("************************");
             Console.WriteLine();
-            Console.WriteLine("[1]. Make a Purchase");
+            Console.WriteLine("[1]. Customer");
             Console.WriteLine("[2]. Maintenance");
             Console.WriteLine("[3]. Exit");
 
@@ -66,108 +70,138 @@ class Program
         }
     }
     private static void GuestMode()
+    //login username and password (Collect Username and Password. Verify using existing [USER] table.)
     {
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Available Items:");
+        Console.WriteLine("Please enter your Username");
+        string Username = Console.ReadLine();
 
+        Console.WriteLine("Please enter your Password");
+        string Password = Console.ReadLine();
 
-        List<VendingMachine> vendingMachine = vs.GetItemsToDisplay();
+        if (us.Login != null)
 
-        //System.Console.WriteLine("=== List of Avilable Items ===");
-        foreach (VendingMachine v in vendingMachine)
+        //Add Options in GuestMode (Purchase - same flow but add a Save to [Purchasehistory] table for the logged in USER.
+
         {
-            //System.Console.WriteLine(v);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            System.Console.WriteLine(v.Id + ": " + v.Item + " $" + v.Price + "0");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("1: Make Purchase");
+            Console.WriteLine("2: Review Purchase History");
+            Console.ReadLine();
         }
+        //Purchase history will use the [Purchasehistory] table to retrieve the logged in USERs individual history. 
 
-        System.Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.White;
-        System.Console.WriteLine("Please enter the number of the item you would like to buy.");
-        int userItem = int.Parse(Console.ReadLine() ?? "0");
-
-        Console.ForegroundColor = ConsoleColor.White;
-        System.Console.WriteLine("Please enter the quantity you would like to purchase.");
-        int userQuantity = int.Parse(Console.ReadLine() ?? "0");
-
-        VendingMachine g = vs.GetItem(userItem);
-
-        g.Sold = g.Sold + userQuantity;   //increases sold value
-        g.Quantity = g.Quantity - userQuantity; //decreases quantity
-
-        vs.PurchasedItems(g);  //dispenses item, updates the counts in the table. 
-
-        Console.ForegroundColor = ConsoleColor.White;
-        System.Console.WriteLine();
-        System.Console.Write("Total Amount Due: ");
-        double totalDue = 0;
-
-        foreach (VendingMachine v in vendingMachine)
         {
-            if (g.Quantity > 0)
-            {
-                totalDue = userQuantity * g.Price;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Available Items:");
 
+
+            List<VendingMachine> vendingMachine = vs.GetItemsToDisplay();
+
+            //System.Console.WriteLine("=== List of Avilable Items ===");
+            foreach (VendingMachine v in vendingMachine)
+            {
+                //System.Console.WriteLine(v);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                System.Console.WriteLine(v.Id + ": " + v.Item + " $" + v.Price + "0");
             }
-        }
 
-        _ = totalDue.ToString("F2");
-        Console.Write(totalDue.ToString("F2"));
+            System.Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            System.Console.WriteLine("Please enter the number of the item you would like to buy.");
+            int userItem = int.Parse(Console.ReadLine() ?? "0");
 
+            Console.ForegroundColor = ConsoleColor.White;
+            System.Console.WriteLine("Please enter the quantity you would like to purchase.");
+            int userQuantity = int.Parse(Console.ReadLine() ?? "0");
 
-        double expectedAmount = totalDue;
-        double paymentAmount;
+            VendingMachine g = vs.GetItem(userItem);
 
-        do
-        {
-            Console.WriteLine();
-            Console.Write("Enter payment amount (dollars and cents): ");
-            if (double.TryParse(Console.ReadLine(), out paymentAmount))
+            g.Sold = g.Sold + userQuantity;   //increases sold value
+            g.Quantity = g.Quantity - userQuantity; //decreases quantity
+
+            vs.PurchasedItems(g);  //dispenses item, updates the counts in the table. 
+
+            Console.ForegroundColor = ConsoleColor.White;
+            System.Console.WriteLine();
+            System.Console.Write("Total Amount Due: ");
+            double totalDue = 0;
+
+            foreach (VendingMachine v in vendingMachine)
             {
-                if (paymentAmount < expectedAmount)
+                if (g.Quantity > 0)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Payment amount is too low. Please insert exact change.");
+                    totalDue = userQuantity * g.Price;
+
                 }
-                else if (paymentAmount > expectedAmount)
+            }
+
+            _ = totalDue.ToString("F2");
+            Console.Write(totalDue.ToString("F2"));
+
+
+            double expectedAmount = totalDue;
+            double paymentAmount;
+
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Enter payment amount (dollars and cents): ");
+                if (double.TryParse(Console.ReadLine(), out paymentAmount))
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"Payment amount is too high. Please insert exact change.");
+                    if (paymentAmount < expectedAmount)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Payment amount is too low. Please insert exact change.");
+                    }
+                    else if (paymentAmount > expectedAmount)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine($"Payment amount is too high. Please insert exact change.");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine();
+                        Console.WriteLine("***************************");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Thank you for your Purchase!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("***************************");
+                        Console.WriteLine();
+                        break;
+                    }
                 }
                 else
                 {
-                    System.Console.WriteLine();
-                    Console.WriteLine("***************************");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Thank you for your Purchase!");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("***************************");
-                    Console.WriteLine();
-                    break;
+                    Console.WriteLine("Invalid input. Please enter a valid amount.");
                 }
-            }
-            else
+            } while (true);
+
+
+
             {
-                Console.WriteLine("Invalid input. Please enter a valid amount.");
+                // Console.ForegroundColor = ConsoleColor.Red;
+                // Console.WriteLine("Invalid Password");
+                // Console.ForegroundColor = ConsoleColor.White;
+
             }
-        } while (true);
 
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Press Enter to return to the Main Menu.");
-        Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Press Enter to return to the Main Menu.");
+            Console.ReadKey();
 
+        }
     }
     //*********************************************************************************
     private static void MaintenanceMode()
     {
-        Console.WriteLine("Please enter your PIN");
+        Console.WriteLine("Please enter your Password");
 
-        int PIN = int.Parse(Console.ReadLine() ?? "0");
+        string Password = Console.ReadLine();
 
         if (us.Login != null)
         {
-            if (PIN == 12345)
+            if (Password == "12345")
 
             {
                 List<VendingMachine> vendingMachine = vs.GetItemsToDisplay();
@@ -220,10 +254,13 @@ class Program
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid PIN");
+                Console.WriteLine("Invalid Password");
                 Console.ForegroundColor = ConsoleColor.White;
 
             }
         }
     }
 }
+
+
+

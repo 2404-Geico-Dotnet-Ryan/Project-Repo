@@ -5,13 +5,8 @@ Soda, Candy, Chips
 
 Pricing - varied pricing
 
-Enter user name: Guest or Maintenance
-User Name should will determine mode "New Purchase or Purchase history"
-
-Purchase History:
-(Maintenance) 
-Allow user to see: "Purchase history". 
-Return value: Item name/count/total dollar amount by item and total combined accross all items.
+Enter user mode: Guest or Maintenance
+User Name will determine mode "New Purchase or Purchase history"
 
 New Purchase: 
 (Guest)
@@ -26,3 +21,11 @@ Decrease Item Quantity for items purchased.
 Maintenance option based on user + unique pin.
 Report Sales inventory and total sales. 
 Message for items with count < '5'. 
+
+
+Individual Users for Guest experience. 
+"I want to see the introduction of a User Model (Class / Table) that can have relatively simple fields (Id, Username, Password) ---already exists. Added additional Users to database. 
+Create an additional Initial Menu to Login before seeing the Main Menu. Ordering will then need to be tracked however you see fit. 
+I will even accept something as incredibly simple as a log that you can recall later to show what any user ordered. 
+The simplest version of this could be another Class / Table: Orders/Transactions/Logs (whatever) -> Id, Log 
+(just a string of whatever you want to put to tell them later what they ordered)."

@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 
-class VendingMachineRepo
+public class VendingMachineRepo
 
 {
     private readonly string _connectionString;
