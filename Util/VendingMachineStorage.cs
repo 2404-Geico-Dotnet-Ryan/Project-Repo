@@ -27,7 +27,3 @@ public VendingMachineStorage()  //same name as class it's in.
     
 }
 
-//The place where the data is stored. Writes to the database or file system.
-/*Data Access Layer - Repository Layer
-    - is responsible for data(base) interaction. These objects that we create will perform any amount of retrieval, manipulation, destruction to our data. 
-        - These Objects are referred as Data Access Objects: DAOs*/

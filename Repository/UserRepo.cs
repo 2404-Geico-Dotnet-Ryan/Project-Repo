@@ -35,12 +35,12 @@ public class UserRepo
             //Extract the Results
             if (reader.Read())
             {
-                //for each iteration -> extract the results to a User object -> add to list.
+               
                 User newUser = BuildUser(reader);
                 return newUser;
             }
 
-            return null; //Didnt find anyone :(
+            return null; 
 
         }
         catch (Exception e)
@@ -51,45 +51,7 @@ public class UserRepo
         }
     }
 
-    /*public List<User>? GetAllUsers()
-    {
-        List<User> users = [];
-
-        try
-        {
-            //Set up DB Connection
-            using SqlConnection connection = new(_connectionString);
-            connection.Open();
-
-            //Create the SQL String
-            string sql = "SELECT * FROM dbo.[USER]";
-
-            //Set up SqlCommand Object
-            using SqlCommand cmd = new(sql, connection);
-
-            //Execute the Query
-            using var reader = cmd.ExecuteReader(); 
-
-            //Extract the Results
-            while (reader.Read())
-            {
-                
-                User newUser = BuildUser(reader);
-
-               
-                users.Add(newUser);
-            }
-
-            return users;
-        }
-        catch (Exception e)
-        {
-            System.Console.WriteLine(e.Message);
-            System.Console.WriteLine(e.StackTrace);
-            return null;
-        }
-    }
-*/
+  
     
     //Helper Method
     private static User BuildUser(SqlDataReader reader)

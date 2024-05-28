@@ -74,7 +74,7 @@ class Program
         }
     }
     private static void GuestMode()
-    //login username and password (Collect Username and Password. Verify using existing [USER] table.)
+       //login username and password (Collect Username and Password. Verify using existing [USER] table.)
     {
         Console.WriteLine("Please enter your Username");
         string Username = Console.ReadLine();
@@ -100,7 +100,7 @@ class Program
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("************************");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Welcome " + loggedInUser.Username);
+                Console.WriteLine("     Welcome " + loggedInUser.Username + "!");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("************************");
                 Console.WriteLine();
@@ -109,7 +109,7 @@ class Program
                 Console.WriteLine("3: Exit");
 
 
-                //Purchase history will use the [Purchasehistory] table to retrieve the logged in USERs individual history. 
+                
                 int choice = int.Parse(Console.ReadLine() ?? "0");
 
                 switch (choice)
@@ -138,7 +138,7 @@ class Program
             }
         }
     }
-
+    //Purchase history will use the [Purchasehistory] table to retrieve the logged in USERs individual history. 
     private static void PurchaseHistory(string username)
     {
         List<Orders> allOrders = or.GetAllOrders(username);

@@ -32,10 +32,5 @@ public class Orders
     }
 
 }
-//       FROM [GayleVendingMachine].[dbo].[Purchasehistory]
-//       ,[Id]
-//       ,[Username]
-//       ,[Item]
-//       ,[Quantity]
-//       ,[Purchasedate]
+
 
