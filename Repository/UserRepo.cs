@@ -13,7 +13,7 @@ public class UserRepo
     }
 
       
-    public User? GetUser(int id)
+     public User? GetUser(string Username)
     {
         try
         {
@@ -22,11 +22,12 @@ public class UserRepo
             connection.Open();
 
             //Create the SQL String
-            string sql = "SELECT * FROM dbo.[USER] WHERE Id = @Id";
+            string sql = "SELECT * FROM dbo.[USER] WHERE Username = @Username";
 
             //Set up SqlCommand Object
             using SqlCommand cmd = new(sql, connection);
-            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@Username", Username);
+            
 
             //Execute the Query
             using var reader = cmd.ExecuteReader();
@@ -50,7 +51,7 @@ public class UserRepo
         }
     }
 
-    public List<User>? GetAllUsers()
+    /*public List<User>? GetAllUsers()
     {
         List<User> users = [];
 
@@ -88,7 +89,7 @@ public class UserRepo
             return null;
         }
     }
-
+*/
     
     //Helper Method
     private static User BuildUser(SqlDataReader reader)
@@ -102,5 +103,7 @@ public class UserRepo
         return newUser;
     }
 }
+
+
 
 //How to interact with the data (abstracts the data layer) CRUD operations - create, read, update, delet

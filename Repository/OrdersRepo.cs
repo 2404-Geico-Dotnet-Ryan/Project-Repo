@@ -17,14 +17,14 @@ public class OrdersRepo
             connection.Open();
 
 
-            string sql = "INSERT into dbo.[Purchasehistory] OUTPUT inserted.* VALUES (@Id, @Username, @Item, @Quantity, @Purchasedate)";
+            string sql = "INSERT into dbo.[Purchasehistory] OUTPUT inserted.* VALUES (@Username, @Item, @Quantity, @Purchasedate)";
 
             using SqlCommand cmd = new(sql, connection);
-            cmd.Parameters.AddWithValue("@Id", Oh.Id);
+           
             cmd.Parameters.AddWithValue("@Username", Oh.Username);
             cmd.Parameters.AddWithValue("@Item", Oh.Item);
             cmd.Parameters.AddWithValue("@Quantity", Oh.Quantity);
-            cmd.Parameters.AddWithValue("@Purchasedate", Oh.PurchaseDate);
+            cmd.Parameters.AddWithValue("@Purchasedate", Oh.Purchasedate);
 
 
             using SqlDataReader reader = cmd.ExecuteReader();
@@ -49,7 +49,7 @@ public class OrdersRepo
         }
     }
 
-    public List<Orders> GetAllOrders(int id)
+    public List<Orders> GetAllOrders(string username)
     {
         List<Orders> purchaseHistory = new();
 
@@ -60,11 +60,11 @@ public class OrdersRepo
             connection.Open();
 
 
-            string sql = "SELECT * FROM dbo.[Purchasehistory] where Id = @Id order by Purchasedate";
+            string sql = "SELECT * FROM dbo.[Purchasehistory] where Username = @Username order by Purchasedate";
 
 
             using SqlCommand cmd = new(sql, connection);
-            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@Username", username);
 
 
             using SqlDataReader reader = cmd.ExecuteReader();
@@ -95,7 +95,7 @@ public class OrdersRepo
         newpurchaseHistory.Username = (string)reader["Username"];
         newpurchaseHistory.Item = (string)reader["Item"];
         newpurchaseHistory.Quantity = (int)reader["Quantity"];
-        newpurchaseHistory.PurchaseDate = (DateTime)reader["Purchasedate"];
+        newpurchaseHistory.Purchasedate = (DateTime)reader["Purchasedate"];
 
         return newpurchaseHistory;
     }

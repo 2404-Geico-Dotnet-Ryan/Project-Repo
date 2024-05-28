@@ -1,10 +1,14 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Dynamic;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Identity.Client;
 class Program
 
 {
     static UserService us;
     static VendingMachineServices vs;
     static OrderServices or;
+    static User? loggedInUser = null;
     static void Main(string[] args)
 
     {
@@ -75,20 +79,81 @@ class Program
         Console.WriteLine("Please enter your Username");
         string Username = Console.ReadLine();
 
+
+
         Console.WriteLine("Please enter your Password");
         string Password = Console.ReadLine();
 
-        if (us.Login != null)
+        User loggedInUser = us.Login(Username, Password);
+
+        if (loggedInUser != null)
 
         //Add Options in GuestMode (Purchase - same flow but add a Save to [Purchasehistory] table for the logged in USER.
 
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("1: Make Purchase");
-            Console.WriteLine("2: Review Purchase History");
-            Console.ReadLine();
+            bool KeepPurchasing = true;
+            while (KeepPurchasing)
+            {
+
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("************************");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Welcome " + loggedInUser.Username);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("************************");
+                Console.WriteLine();
+                Console.WriteLine("1: Make Purchase");
+                Console.WriteLine("2: Review Purchase History");
+                Console.WriteLine("3: Exit");
+
+
+                //Purchase history will use the [Purchasehistory] table to retrieve the logged in USERs individual history. 
+                int choice = int.Parse(Console.ReadLine() ?? "0");
+
+                switch (choice)
+
+                {
+                    case
+                1:
+                        MakePurchase(loggedInUser.Username);
+                        break;
+                    case
+                2:
+
+                        PurchaseHistory(loggedInUser.Username);
+                        break;
+                    case
+               3:
+                        KeepPurchasing = false;
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
         }
-        //Purchase history will use the [Purchasehistory] table to retrieve the logged in USERs individual history. 
+    }
+
+    private static void PurchaseHistory(string username)
+    {
+        List<Orders> allOrders = or.GetAllOrders(username);
+        foreach (Orders order in allOrders)
+        {
+            System.Console.WriteLine(order);
+            System.Console.WriteLine();
+        }
+    }
+
+    public static void MakePurchase(string username)
+
+
+    {
+
 
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -120,6 +185,10 @@ class Program
             g.Quantity = g.Quantity - userQuantity; //decreases quantity
 
             vs.PurchasedItems(g);  //dispenses item, updates the counts in the table. 
+            Orders currentOrder = new Orders(0, username, g.Item, userQuantity, DateTime.Now);
+
+            //writes orders to the table
+            or.AddOrders(currentOrder);
 
             Console.ForegroundColor = ConsoleColor.White;
             System.Console.WriteLine();
@@ -137,6 +206,9 @@ class Program
 
             _ = totalDue.ToString("F2");
             Console.Write(totalDue.ToString("F2"));
+
+
+
 
 
             double expectedAmount = totalDue;
@@ -177,21 +249,16 @@ class Program
             } while (true);
 
 
-
-            {
-                // Console.ForegroundColor = ConsoleColor.Red;
-                // Console.WriteLine("Invalid Password");
-                // Console.ForegroundColor = ConsoleColor.White;
-
-            }
-
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Press Enter to return to the Main Menu.");
-            Console.ReadKey();
-
         }
+
+
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Press Enter to return to the Main Menu.");
+        Console.ReadKey();
+
     }
+
     //*********************************************************************************
     private static void MaintenanceMode()
     {
@@ -261,6 +328,7 @@ class Program
         }
     }
 }
+
 
 
 

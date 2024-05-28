@@ -12,10 +12,10 @@ class OrderServices
     }
 
        
-    public List<Orders> GetAllOrders(int id)
+    public List<Orders> GetAllOrders(string username)
     {
        
-        List<Orders> allOrders = or.GetAllOrders(id);
+        List<Orders> allOrders = or.GetAllOrders(username);
 
         return allOrders;  
     }
@@ -24,4 +24,9 @@ class OrderServices
     {
         return or.AddAllOrders(v); 
     }
+
+  
+
+    
 }
+

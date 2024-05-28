@@ -1,27 +1,27 @@
 class UserService
 {
-        UserRepo up;
+    UserRepo up;
+    
 
+    //Constructor
     public UserService(UserRepo up)
     {
         this.up = up;
     }
-        
-    public User? Login(string username, string Password)
+
+ public User Login(string Username, string inputPassword)
     {
-        //Get all users
-        User? allUsers = up.GetUser(2);
+        User user = up.GetUser(Username);
 
-            if (allUsers.Username == username && allUsers.Password == Password)
-
-            {
-                   
-            return allUsers; //us returning the user will indicate success.
-            } 
-            else
-            {
-            System.Console.WriteLine("Invalid Password! Please Try Again!");
-            return null; 
-            }            
+        if (inputPassword == user.Password)
+        {
+            return user;
+        }
+        else
+        {
+            System.Console.WriteLine("Password is incorrect");
+            
+        } return null;
     }
 }
+

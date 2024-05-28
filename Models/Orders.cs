@@ -1,10 +1,10 @@
 public class Orders
 {
     public int Id { get; set; }
+    public string Username { get; set; }
     public string Item { get; set; }
     public int Quantity { get; set; }
-    public string Username { get; set; }
-    public DateTime PurchaseDate { get; set; }
+    public DateTime Purchasedate { get; set; }
 
     public Orders()
     {
@@ -12,22 +12,22 @@ public class Orders
     }
 
 
-    public Orders(int ID, string item, int quantity)
+    public Orders(int ID, string username, string item, int quantity, DateTime date)
     {
         Id = ID;
+        Username = username;
         Item = item;
         Quantity = quantity;
-        PurchaseDate = PurchaseDate;
+        Purchasedate = date;
     }
 
     public override string ToString()
     {
       return 
-      "{ID:'" + Id
-        + ",username:" + Username
-        + "', item:'" + Item
-        + ",available:" + Quantity
-        + ",purchsedate:" + PurchaseDate + "}";
+          "Guest:" + Username
+        + ", Purchased Item:" + Item
+        + ", Amount:" + Quantity
+        + ", Purchase Date:" + Purchasedate;
     
     }
 
